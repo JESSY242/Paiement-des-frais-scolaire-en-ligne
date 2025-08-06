@@ -80,3 +80,21 @@
   border-radius: 10px;
   overflow: hidden;
 }
+
+span {
+  color: #fff;
+}
+.table-header {
+  background-color: #f9f9f9;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 2px solid #dee2e6;
+
+  th {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}

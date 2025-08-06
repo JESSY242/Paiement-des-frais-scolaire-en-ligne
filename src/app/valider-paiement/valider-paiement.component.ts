@@ -60,7 +60,7 @@ export class ValiderPaiementComponent {
 
       this.Nom = data.Nom
       this.Metricule = data.Matricule
-      this.Classe = data.classe
+      this.Classe = data.Classe
       this.Prenom = data.Prenom
       console.log(this.Nom);
       console.log(this.Prenom);

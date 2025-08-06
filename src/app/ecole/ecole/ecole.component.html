@@ -1,7 +1,7 @@
 <section class="container p-2 mb-lg-3 mb-md-3" style="font-family: 'Segoe UI', sans-serif;">
   <!-- Recherche -->
   <div class="recherche mb-4">
-    <h1 class="fs-4 fw-bold text-dark mb-3">Liste des écoles</h1>
+    <h1 class="fs-4  text-dark mb-3">Liste des écoles</h1>
     <input 
       type="text" 
       name="recherche" 
@@ -25,13 +25,14 @@
         style="background-color: #b30000; border-radius: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease;"
       >
         <div class="card-body">
-          <h5 
-            class="card-title fw-semibold mb-2" 
+          <p
+            class=" card-text mb-2" 
             (click)="infosEveles(ecole)" 
-            style="cursor: pointer;"
+            style="cursor: pointer; font-weight: 800px;"
+          
           >
-            {{ecole.NomEtab}} <span class="text-light">({{ecole.CodeEtab}})</span>
-          </h5>
+            {{ecole.NomEtab}} <span style="color: #ffffff;">({{ecole.CodeEtab}})</span>
+        </p>
           <p class="card-text">
             Ville : <span style="color: #ffffff; font-weight: 600;">{{ecole.Ville}}</span>
           </p>

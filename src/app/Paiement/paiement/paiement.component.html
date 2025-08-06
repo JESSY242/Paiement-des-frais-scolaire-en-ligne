@@ -1,150 +1,141 @@
+
+
+
 <section class="section">
-    <form class="w-100 col-12 col-lg-6 col-md-6 m-auto p-5 shadow raduis" #form="ngForm" (ngSubmit)="rechercheForm(form)">
-     <fieldset>
-  <fieldset class="p-4 rounded-4 shadow-sm border" style="background-color: #ffffff;">
-    <legend class="mb-4 h5 text-dark fw-semibold">{{ nomEtablissement }}</legend>
+  
+  <!-- Bouton retour en haut -->
+  <button 
+    *ngIf="isButtonVisible"
+    class="btn btn-dark rounded-circle shadow-lg"
+    (click)="scrollToTop()"
+    style="position: fixed; bottom: 40px; right: 30px; z-index: 1050; width: 50px; height: 50px;">
+    ↑
+  </button>
 
-    <!-- Code de l'établissement -->
-    <div class="mb-3">
-      <label for="codeEcole" class="form-label fw-semibold" style="color: #000000;">Code de l'établissement</label>
-      <input 
-        type="text" 
-        id="codeEcole" 
-        name="CodeEcole" 
-        class="form-control bg-light text-dark border-0" 
-        [(ngModel)]="CodeEcole" 
-        [readOnly]="true" 
-        placeholder="Code de l'établissement">
-    </div>
+  <form class="w-100 col-12 col-lg-6 col-md-6 m-auto p-5 shadow raduis" #form="ngForm" (ngSubmit)="rechercheForm(form)">
+    <fieldset>
+      <fieldset class="p-4 rounded-4 shadow-sm border" style="background-color: #ffffff;">
+        
+        <legend class="mb-4 h5 text-dark">{{ nomEtablissement }}</legend>
 
-    <!-- Nom de l'élève -->
-    <div class="mb-3">
-      <label for="nomEleve" class="form-label fw-semibold" style="color: #000000;">Nom de l'élève</label>
-      <input 
-        type="text" 
-        id="nomEleve" 
-        name="Nom" 
-        class="form-control bg-light text-dark border-0" 
-        ngModel 
-        placeholder="Entrez le nom de l'élève">
-    </div>
+        <div class="mb-3">
+          <label for="codeEcole" class="form-label" style="color: #000000;">Code de l'établissement</label>
+          <input 
+            type="text" 
+            id="codeEcole" 
+            name="CodeEcole" 
+            class="form-control bg-light text-dark border-0" 
+            [(ngModel)]="CodeEcole" 
+            [readOnly]="true" 
+            placeholder="Code de l'établissement">
+        </div>
 
-    <!-- Prénom de l'élève -->
-    <div class="mb-3">
-      <label for="prenomEleve" class="form-label fw-semibold" style="color: #000000;">Prénom de l'élève</label>
-      <input 
-        type="text" 
-        id="prenomEleve" 
-        name="Prenom" 
-        class="form-control bg-light text-dark border-0" 
-        ngModel 
-        placeholder="Entrez le prénom de l'élève">
-    </div>
+        <div class="mb-3">
+          <label for="nomEleve" class="form-label" style="color: #000000;">Nom de l'élève</label>
+          <input 
+            type="text" 
+            id="nomEleve" 
+            name="Nom" 
+            class="form-control bg-light text-dark border-0" 
+            ngModel 
+            placeholder="Entrez le nom de l'élève">
+        </div>
 
-    <!-- Bouton de recherche -->
-    <div class="mt-4 text-end">
-      <button 
-        type="submit" 
-        class="btn fw-semibold px-4" 
-        style="background-color: black; color: white; border-radius: 8px;">
-        Rechercher
-      </button>
-    </div>
-    <div *ngIf="!loading && eleveTrouve.length === 0 && rechercheEffectuee" class="alert alert-warning mt-3 text-center">
-  Aucun élève trouvé.
-</div>
+        <div class="mb-3">
+          <label for="prenomEleve" class="form-label" style="color: #000000;">Prénom de l'élève</label>
+          <input 
+            type="text" 
+            id="prenomEleve" 
+            name="Prenom" 
+            class="form-control bg-light text-dark border-0" 
+            ngModel 
+            placeholder="Entrez le prénom de l'élève">
+        </div>
 
-  </fieldset>
+        <div class="mt-4 text-end">
+          <button 
+            type="submit" 
+            class="btn fw-semibold px-4" 
+            style="background-color: black; color: white; border-radius: 8px;">
+            Rechercher
+          </button>
+        </div>
 
+        <div *ngIf="!loading && eleveTrouve.length === 0 && rechercheEffectuee" class="alert alert-warning mt-3 text-center">
+          Aucun élève trouvé.
+        </div>
+      </fieldset>
 
-<br><br>
+      <br><br>
 
-        <!-- Champ de recherche + bouton -->
-<div class="row g-2 align-items-center mb-3" *ngIf="eleveTrouve.length > 0">
-    
-  <div class="col-lg-8 col-md-8 col-12">
-    <input type="text" class="form-control shadow-sm border-0" name="Recherche" ngModel placeholder="🔍 Rechercher un élève..." />
-  </div>
-  <div class="col-lg-4 col-md-4 col-12 text-end">
-    <button class="btn btn-search w-100 fw-bold">Rechercher</button>
-  </div>
-</div>
+      <div class="row g-2 align-items-center mb-3" *ngIf="eleveTrouve.length > 0">
+        <div class="col-lg-8 col-md-8 col-12">
+          <input type="text" class="form-control shadow-sm border-0" name="Recherche" ngModel placeholder="🔍 Rechercher un élève..." />
+        </div>
+        <div class="col-lg-4 col-md-4 col-12 text-end">
+          <button class="btn btn-search w-100 fw-bold">Rechercher</button>
+        </div>
+      </div>
 
-<!-- Spinner -->
-<div class="d-flex justify-content-center mt-5" *ngIf="loading">
-  <div class="spinner-border text-danger" role="status">
-    <span class="visually-hidden">Chargement...</span>
-  </div>
-</div>
+      <div class="d-flex justify-content-center mt-5" *ngIf="loading">
+        <div class="spinner-border text-danger" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
 
-<!-- Tableau visible uniquement sur les écrans lg et plus -->
-<div class="d-none d-lg-block table-container mt-4 shadow-lg rounded">
-  <div class="table-responsive overflow-auto" style="max-height: 70vh;">
-    <table class="table table-bordered table-hover align-middle text-nowrap">
-      <thead class="table-dark text-center">
-        <tr>
-          <th>ID</th>
-          <th>Matricule</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Date Naissance</th>
-          <th>Lieu Naissance</th>
-          <th>Classe</th>
-          <th>Établissement</th>
-          <th>Photo</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <tr *ngFor="let eleve of eleveTrouve">
-          <td>{{ eleve.IDELEVE }}</td>
-          <td>{{ eleve.Metricule }}</td>
-          <td>{{ eleve.Nom }}</td>
-          <td>{{ eleve.Prenom }}</td>
-          <td>{{ eleve.DateNaissance }}</td>
-          <td>{{ eleve.LieuNaissance }}</td>
-          <td>{{ eleve.Classe }}</td>
-          <td>{{ eleve.Etablissement }}</td>
-          <td>
-            <img
-              [src]="eleve.Photo"
-              alt="Photo élève"
-              width="45"
-              height="45"
-              class="rounded-circle border border-2 border-white shadow-sm"
-            />
-          </td>
-          <td>
-            <button class="btn btn-primary btn-sm" (click)="openDialog(eleve)">
-              ✔ Sélectionner
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+      <!-- Tableau visible uniquement sur les écrans lg et plus -->
+      <div class="d-none d-lg-block table-container mt-4 shadow-lg rounded" style="max-height: 70vh; overflow-y: auto;">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle text-nowrap">
+            <thead class="table-dark text-center">
+              <tr>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date Naissance</th>
+                <th>Lieu Naissance</th>
+                <th>Établissement</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let eleve of eleveTrouve">
+                <td>{{ eleve.Metricule }}</td>
+                <td>{{ eleve.Nom }}</td>
+                <td>{{ eleve.Prenom }}</td>
+                <td>{{ eleve.DateNaissance }}</td>
+                <td>{{ eleve.LieuNaissance }}</td>
+                <td>{{ eleve.Etablissement }}</td>
+                <td>
+                  <button class="btn btn-dark btn-sm" (click)="openDialog(eleve)">
+                    ✔ Sélectionner
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-            <!-- mobile -->
-            <div class="zone_repete mt-5 w-100 mx-auto d-block d-lg-none d-md-none" *ngIf="this.eleveTrouve.length > 0">
-                <div class="row row-cols-lg-4 row-cols-md-3 mx-auto ">
-                    <div class="mb-sm-0 btn p-2" *ngFor="let eleve of eleveTrouve">
-                        <div class="card shadow" style="text-align: start; background-color: red;">
-                            <div class="p-2">
-                                <p class="d-none">Matricule : <span class="text-primary">{{eleve.Metricule}}</span></p>
-                                <h1><span class="text-primary">{{eleve.Nom}}</span></h1>
-                                <p>Prenom : <span class="text-primary">{{eleve.Prenom}}</span></p>
-                                <p>Date de naissance : <span class="text-primary">{{eleve.DateNaissance}}</span></p>
-                                <p>Lieu de naissance : <span class="text-primary">{{eleve.LieuNaissance}}</span></p>
-                                <p>Classe : <span class="text-primary"></span>{{eleve.Classe}}</p>
-                            </div>
-                            <td>
-                                <button class="btn btn-primary form-control" (click)="openDialog(eleve)">Selectionner</button>
-                            </td>
-                        </div>
-                    </div>
-                </div>
+      <!-- mobile -->
+      <div class="zone_repete mt-5 w-100 mx-auto d-block d-lg-none d-md-none" *ngIf="eleveTrouve.length > 0">
+        <div class="row row-cols-lg-4 row-cols-md-3 mx-auto">
+          <div class="mb-sm-0 btn p-2" *ngFor="let eleve of eleveTrouve">
+            <div class="card shadow" style="text-align: start; background-color: red; color: #000000;">
+              <div class="p-2">
+                <p class="d-none">Matricule : <span>{{ eleve.Metricule }}</span></p>
+                <h1><span>{{ eleve.Nom }}</span></h1>
+                <p>Prénom : <span style="color: #ffffff;">{{ eleve.Prenom }}</span></p>
+                <p>Date de naissance : <span>{{ eleve.DateNaissance }}</span></p>
+                <p>Lieu de naissance : <span style="color: #ffffff;">{{ eleve.LieuNaissance }}</span></p>
+              </div>
+              <td>
+                <button class="btn form-control" (click)="openDialog(eleve)" style="background-color: black; color: #ffffff;">Sélectionner</button>
+              </td>
             </div>
-        </fieldset>
-    </form>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </section>
