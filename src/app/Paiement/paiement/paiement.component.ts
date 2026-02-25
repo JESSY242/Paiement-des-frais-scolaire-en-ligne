@@ -11,6 +11,7 @@ import { Iheader } from 'src/app/model/header';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormvailiderPaiementComponent } from 'src/app/valider-paiement/formvailider-paiement/formvailider-paiement.component';
 import { AnneeScolaireComponent } from 'src/app/annee-scolaire/annee-scolaire.component';
+import { SauvegardeService } from 'src/app/service/sauvegarde.service';
 
 @Component({
   selector: 'app-paiement',
@@ -40,18 +41,25 @@ export class PaiementComponent {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private entete: GlobalServiceService,
-    private location: Location
+    private location: Location,
+    private sauvegarde : SauvegardeService
   ) {}
 goBack(): void {
   this.location.back();
 }
   ngOnInit() {
-    const codeEtab = this.activateRoute.snapshot.params['CodeEtab'];
-    const nomEtab = this.activateRoute.snapshot.params['NomEtab'];
-    this.CodeEcole = codeEtab;
-    this.nomEtablissement = nomEtab;
-    console.log(this.CodeEcole);
+  const codeEtab = this.activateRoute.snapshot.params['CodeEtab'];
+  const nomEtab = this.activateRoute.snapshot.params['NomEtab'];
+  this.CodeEcole = codeEtab;
+  this.nomEtablissement = nomEtab;
+  console.log(this.CodeEcole);
+
+  // Restaurer le tableau depuis le service
+  if(this.sauvegarde.eleveTrouve.length > 0){
+    this.eleveTrouve = this.sauvegarde.eleveTrouve;
+    this.rechercheEffectuee = this.sauvegarde.rechercheEffectuee;
   }
+}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -61,27 +69,37 @@ goBack(): void {
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  
 
-  rechercheForm(form: NgForm) {
-    this.loading = true;
-    this.rechercheEffectuee = false;
-    const eleve: Ieleve = form.value;
+rechercheForm(form: NgForm) {
+  this.loading = true;
+  const eleve: Ieleve = form.value;
 
-    this.serviceEleve.postRecherEcole(eleve).subscribe({
-      next: (data) => {
-        this.eleveTrouve = Array.isArray(data) ? data : [];
-        this.rechercheEffectuee = true;
-        this.loading = false;
-        this.idEleve = this.eleveTrouve[0]?.IDELEVE ?? 0;
-      },
-      error: (err) => {
-        console.error(err);
-        this.eleveTrouve = [];
-        this.rechercheEffectuee = true;
-        this.loading = false;
+  this.serviceEleve.postRecherEcole(eleve).subscribe({
+    next: (data) => {
+      const result = Array.isArray(data) ? data : [];
+
+      this.eleveTrouve = result;
+      this.rechercheEffectuee = true;
+      this.loading = false;
+
+      if(result.length > 0){
+        
+        this.sauvegarde.eleveTrouve = result;
+        this.sauvegarde.rechercheEffectuee = true;
+        this.idEleve = result[0]?.IDELEVE ?? 0;
       }
-    });
-  }
+
+     
+    },
+    error: (err) => {
+      console.error(err);
+      this.loading = false;
+      this.rechercheEffectuee = true;
+      
+    }
+  });
+}
 
   openDialog(Eleve: IeleveRenvoye): void {
     const id = Eleve.IDELEVE;

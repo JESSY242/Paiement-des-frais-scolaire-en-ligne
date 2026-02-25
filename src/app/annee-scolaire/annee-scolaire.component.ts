@@ -33,6 +33,10 @@ export class AnneeScolaireComponent {
     }else{
       alert("Veuillez sélectionner une année scolaire.")
     }
+    
   }
+  goBack() {
+  window.history.back();
+}
 
 }

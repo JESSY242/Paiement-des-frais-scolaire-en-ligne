@@ -27,6 +27,9 @@ export class ValiderPaiementComponent {
   Nom!: string
   Prenom!: string
   Classe!: string
+  aucunPaiement = false;
+timeoutRef: any;
+  
 
   readonly dialog = inject(MatDialog);
 
@@ -51,24 +54,44 @@ export class ValiderPaiementComponent {
   }
 
   // recuperer un eleve avec ID
-  getOnFraisScolaireEleve(id: number){
-    this.loading = true
-    console.log(id);
-    this.servicefraiScolaire.getFraisScolaireEleve(id).subscribe((data)=>{
-      console.log(data);   
-      this.tabDetailProduits = data.tabDetailProduits
+ getOnFraisScolaireEleve(id: number) {
+  this.loading = true;
+  this.aucunPaiement = false;
+  this.tabDetailProduits = [];
 
-      this.Nom = data.Nom
-      this.Metricule = data.Matricule
-      this.Classe = data.Classe
-      this.Prenom = data.Prenom
-      console.log(this.Nom);
-      console.log(this.Prenom);
-      console.log(this.Metricule);
-      
-      this.loading = false
-    })
-  }
+  // ⏱️ timeout de sécurité : 10 secondes
+  this.timeoutRef = setTimeout(() => {
+    if (this.loading) {
+      this.loading = false;
+      this.aucunPaiement = true;
+    }
+  }, 10000);
+
+  this.servicefraiScolaire.getFraisScolaireEleve(id).subscribe({
+    next: (data: any) => {
+      clearTimeout(this.timeoutRef);
+      this.loading = false;
+
+      if (data?.tabDetailProduits && data.tabDetailProduits.length > 0) {
+        this.tabDetailProduits = data.tabDetailProduits;
+        this.aucunPaiement = false;
+
+        this.Nom = data.Nom;
+        this.Metricule = data.Matricule;
+        this.Classe = data.Classe;
+        this.Prenom = data.Prenom;
+      } else {
+        this.aucunPaiement = true;
+      }
+    },
+    error: () => {
+      clearTimeout(this.timeoutRef);
+      this.loading = false;
+      this.aucunPaiement = true;
+    }
+  });
+}
+
 
   openDialog(data: any): void {
     console.log(data);

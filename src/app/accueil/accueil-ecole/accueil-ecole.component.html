@@ -1,0 +1,155 @@
+<div class="page">
+  <div class="header">
+    <div class="connected">
+      <span class="green-dot"></span>
+      {{ ecole?.RaisonSociale }}
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner-border text-light"></div>
+  </div>
+
+ 
+
+  <!-- Tableau en bas avec recherche -->
+ <div class="table-container" *ngIf="transactions.length > 0">
+  <div class="search-bar">
+   <input
+  type="text"
+  [(ngModel)]="searchLibelle"
+  (input)="applyFilters()"
+  class="search-input"
+  placeholder="Rechercher par Libellé"
+/>
+<input
+  type="text"
+  [(ngModel)]="searchMobile"
+  (input)="applyFilters()"
+  class="search-input"
+  placeholder="Rechercher par téléphone"
+/>
+
+<input
+  type="text"
+  [(ngModel)]="searchReference"
+  (input)="applyFilters()"
+  class="search-input"
+  placeholder="Rechercher par référence"
+/>
+   <input
+  type="date"
+  [(ngModel)]="searchDateDebut"
+  (change)="applyFilters()"
+  class="search-input-date"
+/>
+
+<input
+  type="date"
+  [(ngModel)]="searchDateFin"
+  (change)="applyFilters()"
+  class="search-input-date"
+/>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Libellé</th>
+          <th>Montant</th>
+          <!-- <th>Frais</th> -->
+          <th>Payeur</th>
+           <th>Reference</th>
+           <th>Détail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of filteredList">
+          <td>{{ t.DateHeure | date: 'dd-MM-yyyy' }}</td>
+          <td>{{ t.Libelle }}</td>
+          <td>{{ t.Montant | number:'1.0-0'}}</td>
+          <!-- <td>{{ t.Frais }}</td> -->
+          <td>{{ t.Mobile_Payeur || '-' }}</td>
+          <td>{{ t.Reference }}</td>
+          <td>
+  <button class="btn btn-danger"
+        (click)="openDetails(t)">
+  👁 Détail
+</button>
+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-dark" (click)="exporterPDF()" style="width: 150px; margin-top: 5px;">
+  Télécharger PDF
+</button>
+</div>
+
+
+ <div class="dashboard" *ngIf="!loading">
+    <div class="card">
+  <h3>Montant encaissé</h3>
+  <p>{{ montantEncaisse | number:'1.0-0' }} FCFA</p>
+</div>
+
+    <div class="card">
+      <h3>Total Transactions</h3>
+      <p>{{ filteredList.length }}</p>
+    </div>
+  </div>
+<!-- MODALE DETAIL -->
+<div class="custom-modal" *ngIf="showModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4>Détail Transaction</h4>
+      <button class="close-btn" (click)="closeModal()">X</button>
+    </div>
+
+    <div class="modal-body" *ngIf="selectedTransaction">
+
+      <div class="detail-row">
+        <span>Date :</span>
+        <span>{{ selectedTransaction.DateHeure | date:'dd-MM-yyyy HH:mm' }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span>Libellé :</span>
+        <span>{{ selectedTransaction.Libelle }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span>Montant :</span>
+        <span>{{ selectedTransaction.Montant | number:'1.0-0' }} FCFA</span>
+      </div>
+
+      <div class="detail-row">
+        <span>Frais :</span>
+        <span>{{ selectedTransaction.Frais | number:'1.0-2' }} FCFA</span>
+      </div>
+
+      <div class="detail-row">
+        <span>Référence :</span>
+        <span>{{ selectedTransaction.Reference }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span>ID Transaction :</span>
+        <span>{{ selectedTransaction.IDTransaction }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span>Mobile Payeur :</span>
+        <span>{{ selectedTransaction.Mobile_Payeur }}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</div>

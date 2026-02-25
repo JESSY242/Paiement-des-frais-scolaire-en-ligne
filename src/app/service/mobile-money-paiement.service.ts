@@ -20,4 +20,12 @@ export class MobileMoneyPaiementService {
       const headers = this.header.getModelHeader()
       return this.http.post(this.ApiEleve, data, {headers})
     }
+    verifierStatutTransaction(payload: any): Observable<any> {
+  const headers = this.header.getModelHeader()
+  return this.http.post(
+    'https://eschool.ovh/eschool/V1/MOBILE_MONEY_Verifie_Statut_Transaction',
+    payload,
+    { headers }
+  )
+}
 }

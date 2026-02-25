@@ -38,15 +38,46 @@
       <div class="p-2 rounded bg-light border">{{ DetailOperation }}</div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label text-dark">📞 Mobile du payeur</label>
-      <input type="tel" class="form-control" name="MobilePayeur" ngModel [(ngModel)]="MobilePayeur">
-    </div>
+   <div class="mb-3">
+  <label class="form-label text-dark">📞 Mobile du payeur</label>
+  <input 
+    type="tel" 
+    class="form-control"
+    name="MobilePayeur"
+    required
+    pattern="^(04|05)[0-9]{7}$"
+    maxlength="9"
+    minlength="9"
+    [(ngModel)]="MobilePayeur"
+    #mobile="ngModel"
+    (ngModelChange)="onFieldChange()"
+  >
 
-    <div class="mb-3">
-      <label class="form-label text-dark">💵 Montant</label>
-      <input type="number" class="form-control" name="Montant" ngModel [(ngModel)]="Montant" placeholder="Montant à payer">
-    </div>
+  <div *ngIf="mobile.invalid && mobile.touched" class="text-danger small mt-1">
+    Le numéro doit commencer par 04 ou 05 et contenir exactement 9 chiffres.
+  </div>
+</div>
+
+
+   <div class="mb-3">
+  <label class="form-label text-dark">💵 Montant</label>
+  <input 
+    type="number"
+    class="form-control"
+    name="Montant"
+    required
+    min="1"
+    [(ngModel)]="Montant"
+    #montant="ngModel"
+    (ngModelChange)="onFieldChange()"
+    placeholder="Montant à payer"
+  >
+
+  <div *ngIf="montant.invalid && montant.touched" class="text-danger small mt-1">
+    Le montant doit être supérieur à 0.
+  </div>
+</div>
+
 
     <!-- Chargement -->
     <div class="d-flex justify-content-center mt-4" *ngIf="loading">
@@ -59,7 +90,35 @@
     <div *ngIf="message" class="text-primary text-center mb-3">{{ message }}</div>
 
     <!-- Boutons -->
-    <button type="submit" class="btn btn-danger w-100 mb-2 fw-semibold">Valider</button>
-    <button type="button" (click)="onNoClick()" class="btn btn-dark w-100 fw-semibold">Annuler</button>
+   <button 
+  type="submit" 
+  class="btn btn-danger w-100 mb-2 fw-semibold"
+  [disabled]="loading || form.invalid || operationValidee"
+>
+  <span *ngIf="!loading">Valider</span>
+  <span *ngIf="loading">Traitement...</span>
+</button>
+
+    <button type="button" (click)="onNoClick()" class="btn btn-dark w-100 fw-semibold  mb-2">Annuler</button>
+    <!-- Bouton Imprimer le reçu -->
+<button
+  *ngIf="paiementValide"
+  type="button"
+  class="btn btn-success w-100 fw-semibold mb-2"
+  (click)="ouvrirRecu()"
+>
+  🧾 Imprimer le reçu
+</button>
+
+<!-- Bouton Revérifier -->
+<button
+  *ngIf="afficherReverification"
+  type="button"
+  class="btn btn-danger w-100 mb-2 fw-semibold"
+  (click)="verifierPaiement()"
+>
+  🔄 Revérifier le paiement
+</button>
+
   </form>
 </section>

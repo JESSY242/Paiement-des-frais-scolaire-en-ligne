@@ -30,6 +30,11 @@
               "src/assets"
               
             ],
+            "serve": {
+  "options": {
+    "proxyConfig": "proxy.conf.json"
+  }
+},
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",

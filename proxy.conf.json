@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "http://eschoolapi.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

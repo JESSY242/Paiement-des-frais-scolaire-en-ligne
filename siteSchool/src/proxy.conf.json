@@ -1,0 +1,7 @@
+{
+  "/epay": {
+    "target": "http://eschoolapi.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

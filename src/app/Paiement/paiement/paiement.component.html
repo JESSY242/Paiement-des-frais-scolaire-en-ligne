@@ -2,6 +2,11 @@
 
 
 <section class="section">
+  <!-- Overlay Chargement -->
+<div class="loading-overlay" *ngIf="loading">
+  <div class="spinner-border text-light" role="status"></div>
+  <p class="mt-3 text-white fw-semibold">Chargement en cours...</p>
+</div>
   
   <!-- Bouton retour en haut -->
   <button 
@@ -84,38 +89,41 @@
       </div>
 
       <!-- Tableau visible uniquement sur les écrans lg et plus -->
-      <div class="d-none d-lg-block table-container mt-4 shadow-lg rounded" style="max-height: 70vh; overflow-y: auto;">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover align-middle text-nowrap">
-            <thead class="table-dark text-center">
-              <tr>
-                <th>Matricule</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Date Naissance</th>
-                <th>Lieu Naissance</th>
-                <th>Établissement</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <tr *ngFor="let eleve of eleveTrouve">
-                <td>{{ eleve.Metricule }}</td>
-                <td>{{ eleve.Nom }}</td>
-                <td>{{ eleve.Prenom }}</td>
-                <td>{{ eleve.DateNaissance }}</td>
-                <td>{{ eleve.LieuNaissance }}</td>
-                <td>{{ eleve.Etablissement }}</td>
-                <td>
-                  <button class="btn btn-dark btn-sm" (click)="openDialog(eleve)">
-                    ✔ Sélectionner
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <div class="d-none d-lg-block table-container mt-4 shadow-lg rounded"
+     style="max-height: 70vh; overflow: auto;">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-nowrap"
+           style="min-width: 1100px;">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Matricule</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Date Naissance</th>
+          <th>Lieu Naissance</th>
+          <th>Établissement</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let eleve of eleveTrouve">
+          <td>{{ eleve.Metricule }}</td>
+          <td>{{ eleve.Nom }}</td>
+          <td>{{ eleve.Prenom }}</td>
+          <td>{{ eleve.DateNaissance }}</td>
+          <td>{{ eleve.LieuNaissance }}</td>
+          <td>{{ eleve.Etablissement }}</td>
+          <td>
+            <button class="btn btn-dark btn-sm" (click)="openDialog(eleve)">
+              ✔ Sélectionner
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
       <!-- mobile -->
       <div class="zone_repete mt-5 w-100 mx-auto d-block d-lg-none d-md-none" *ngIf="eleveTrouve.length > 0">

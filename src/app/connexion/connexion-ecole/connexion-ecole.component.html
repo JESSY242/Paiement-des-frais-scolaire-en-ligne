@@ -1,0 +1,55 @@
+<div class="page">
+  <div class="login-box">
+    <h2>Connexion</h2>
+
+    <form (ngSubmit)="seConnecter()">
+
+    <div class="input-group">
+  <label>CODE ECOLE</label>
+  <input type="text"
+         [(ngModel)]="login"
+         required
+         name="login"
+         placeholder="Entrez votre code école">
+         
+  <small class="text-danger" *ngIf="errorLogin">
+    {{ errorLogin }}
+  </small>
+</div>
+
+
+<div class="input-group">
+  <label>Mot de passe</label>
+  <input type="password"
+         [(ngModel)]="MoDePasse"
+         required
+         name="MotDePasse"
+         placeholder="Entrez votre mot de passe">
+
+  <small class="text-danger" *ngIf="errorPassword">
+    {{ errorPassword }}
+  </small>
+</div>
+
+    <button type="submit"
+        class="btn btn-dark w-100"
+        [disabled]="loading || bloque">
+
+  <span *ngIf="!bloque">Se connecter</span>
+  <span *ngIf="bloque">
+    Réessayez dans {{ compteur }} s
+  </span>
+
+</button>
+
+    </form>
+
+    <!-- Chargement -->
+    <div class="d-flex justify-content-center mt-4" *ngIf="loading">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+
+  </div>
+</div>

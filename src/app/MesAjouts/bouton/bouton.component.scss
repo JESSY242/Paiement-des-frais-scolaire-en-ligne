@@ -1,0 +1,30 @@
+.back-btn {
+  position: fixed;
+  top: 55px;        /* descend un peu */
+  right: 30px;      /* à droite */
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #dc3545;
+
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+
+  font-weight: 600;
+  font-size: 14px;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  z-index: 1100;
+}
+
+.back-btn:hover {
+  background: #dc3545;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(220, 53, 69, 0.3);
+}

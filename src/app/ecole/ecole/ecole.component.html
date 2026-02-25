@@ -18,34 +18,45 @@
   </div>
 
   <!-- Liste des écoles -->
-  <div class="row" *ngIf="!loading">
-    <div class="col-sm-6 col-md-6 col-lg-4 mb-3" *ngFor="let ecole of recherches">
-      <div 
-        class="card text-white border-0 shadow-sm" 
-        style="background-color: #b30000; border-radius: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease;"
-      >
-        <div class="card-body">
-          <p
-            class=" card-text mb-2" 
-            (click)="infosEveles(ecole)" 
-            style="cursor: pointer; font-weight: 800px;"
-          
-          >
-            {{ecole.NomEtab}} <span style="color: #ffffff;">({{ecole.CodeEtab}})</span>
-        </p>
-          <p class="card-text">
-            Ville : <span style="color: #ffffff; font-weight: 600;">{{ecole.Ville}}</span>
-          </p>
-          <button 
-            class="btn btn-dark w-100 mt-3 fw-semibold" 
-            (click)="infosEveles(ecole)" 
-            mat-button 
-            mat-dialog-close
-          >
-            Sélectionner
-          </button>
-        </div>
+  <div class="row g-4" *ngIf="!loading">
+
+  <div class="col-lg-4 col-md-6 col-12" *ngFor="let ecole of recherches">
+
+    <div class="card ecole-card h-100 shadow-sm">
+
+      <!-- Header rouge -->
+      <div class="card-header header-red text-white border-0">
+        <h3 class="mb-1 fw-bold">
+          {{ ecole.NomEtab }}
+        </h3>
+        <small class="opacity-75">
+          Code : {{ ecole.CodeEtab }}
+        </small>
       </div>
+
+      <!-- Body -->
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between mb-3">
+          <span>Ville :</span>
+          <span class="fw-semibold">{{ ecole.Ville }}</span>
+        </div>
+
+        <button 
+          class="btn btn-dark w-100 fw-semibold"
+          (click)="infosEveles(ecole)"
+          mat-button 
+          mat-dialog-close
+        >
+          Sélectionner
+        </button>
+
+      </div>
+
     </div>
+
   </div>
+
+</div>
+
 </section>

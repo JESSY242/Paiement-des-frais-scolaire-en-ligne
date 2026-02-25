@@ -10,6 +10,8 @@ import { ValiderPaiementComponent } from './valider-paiement/valider-paiement.co
 import { EnvironComponent } from './environ/environ.component';
 import { TemoignagesComponent } from './temoignages/temoignages.component';
 import { ServicePageComponent } from './service-page/service-page.component';
+import { ConnexionEcoleComponent } from './connexion/connexion-ecole/connexion-ecole.component';
+import { AccueilEcoleComponent } from './accueil/accueil-ecole/accueil-ecole.component';
 
 const routes: Routes = [
   {path: '', component: AccueilComponent},
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path: 'environ', component: EnvironComponent},
   {path: 'temoignages', component: TemoignagesComponent},
   {path: 'service', component: ServicePageComponent},
+  { path:'connexionEcole', component:ConnexionEcoleComponent},
+   { path:'accueilEcole', component:AccueilEcoleComponent}
 
 ];
 
