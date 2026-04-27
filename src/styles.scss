@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family:'Poppins', sans-serif, Roboto, "Helvetica Neue", sans-serif; }
+.head{
+      position: sticky;
+  top: 0;
+  z-index: 1000;
+}

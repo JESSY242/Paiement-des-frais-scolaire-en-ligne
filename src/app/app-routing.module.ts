@@ -25,7 +25,8 @@ const routes: Routes = [
   {path: 'temoignages', component: TemoignagesComponent},
   {path: 'service', component: ServicePageComponent},
   { path:'connexionEcole', component:ConnexionEcoleComponent},
-   { path:'accueilEcole', component:AccueilEcoleComponent}
+   { path:'accueilEcole', component:AccueilEcoleComponent},
+   { path: '**', redirectTo: '' } // redirection vers la page d'accueil 
 
 ];
 

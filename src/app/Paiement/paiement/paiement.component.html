@@ -17,11 +17,11 @@
     ↑
   </button>
 
-  <form class="w-100 col-12 col-lg-6 col-md-6 m-auto p-5 shadow raduis" #form="ngForm" (ngSubmit)="rechercheForm(form)">
+  <form class="w-100 col-12 col-lg-6 col-md-6 m-auto p-2 p-md-4 p-lg-5 shadow raduis" #form="ngForm" (ngSubmit)="rechercheForm(form)">
     <fieldset>
       <fieldset class="p-4 rounded-4 shadow-sm border" style="background-color: #ffffff;">
         
-        <legend class="mb-4 h5 text-dark">{{ nomEtablissement }}</legend>
+        <legend class="mb-4 h5 text-dark">{{ nomEtablissement }} <span>({{CodeEcole}})</span></legend>
 
         <div class="mb-3">
           <label for="codeEcole" class="form-label" style="color: #000000;">Code de l'établissement</label>
@@ -72,6 +72,10 @@
       </fieldset>
 
       <br><br>
+
+      <h3 class="text-center mt-4 text-dark fw-bold" *ngIf="eleveTrouve.length > 0">
+  Résultats trouvés
+</h3>
 
       <div class="row g-2 align-items-center mb-3" *ngIf="eleveTrouve.length > 0">
         <div class="col-lg-8 col-md-8 col-12">
@@ -127,13 +131,14 @@
 
       <!-- mobile -->
       <div class="zone_repete mt-5 w-100 mx-auto d-block d-lg-none d-md-none" *ngIf="eleveTrouve.length > 0">
+        
         <div class="row row-cols-lg-4 row-cols-md-3 mx-auto">
+          
           <div class="mb-sm-0 btn p-2" *ngFor="let eleve of eleveTrouve">
-            <div class="card shadow" style="text-align: start; background-color: red; color: #000000;">
+            <div class="card shadow" style="text-align: start; background-color: red; color: #000000;"  (click)="openDialog(eleve)" >
               <div class="p-2">
                 <p class="d-none">Matricule : <span>{{ eleve.Metricule }}</span></p>
-                <h1><span>{{ eleve.Nom }}</span></h1>
-                <p>Prénom : <span style="color: #ffffff;">{{ eleve.Prenom }}</span></p>
+                <h1><span>{{ eleve.Nom }} {{ eleve.Prenom }}</span></h1>
                 <p>Date de naissance : <span>{{ eleve.DateNaissance }}</span></p>
                 <p>Lieu de naissance : <span style="color: #ffffff;">{{ eleve.LieuNaissance }}</span></p>
               </div>

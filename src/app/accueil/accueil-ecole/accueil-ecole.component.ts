@@ -75,7 +75,8 @@ exporterPDF() {
     t.Libelle,
     t.Montant,
      t.Frais,
-    t.Mobile_Payeur || '-'
+    t.Mobile_Payeur || '-',
+    t.Reference 
   ];
 });
 

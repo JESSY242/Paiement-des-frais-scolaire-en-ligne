@@ -21,3 +21,12 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
+
+.recherche-fixe {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: #fff; /* pour éviter transparence */
+  padding-top: 10px;
+}

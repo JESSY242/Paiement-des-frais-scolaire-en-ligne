@@ -1,6 +1,6 @@
 <section class="container p-2 mb-lg-3 mb-md-3" style="font-family: 'Segoe UI', sans-serif;">
   <!-- Recherche -->
-  <div class="recherche mb-4">
+  <div class="recherche mb-4 recherche-fixe">
     <h1 class="fs-4  text-dark mb-3">Liste des écoles</h1>
     <input 
       type="text" 
@@ -25,21 +25,23 @@
     <div class="card ecole-card h-100 shadow-sm">
 
       <!-- Header rouge -->
-      <div class="card-header header-red text-white border-0">
+      <div class="card-header header-red text-white border-0" (click)="infosEveles(ecole)">
         <h3 class="mb-1 fw-bold">
-          {{ ecole.NomEtab }}
-        </h3>
-        <small class="opacity-75">
-          Code : {{ ecole.CodeEtab }}
+          {{ ecole.NomEtab }}  <small class="opacity-75" style="margin-left: 5px;">
+        ({{ ecole.CodeEtab }} )
         </small>
+        </h3>
+        <!-- <small class="opacity-75">
+          Code : {{ ecole.CodeEtab }}
+        </small> -->
       </div>
 
       <!-- Body -->
-      <div class="card-body">
+      <div class="card-body"  (click)="infosEveles(ecole)">
 
-        <div class="d-flex justify-content-between mb-3">
-          <span>Ville :</span>
-          <span class="fw-semibold">{{ ecole.Ville }}</span>
+        <div class="d-flex justify-content-between mb-3"(click)="infosEveles(ecole)" >
+          <span>{{ ecole.Ville }}</span>
+          <!-- <span class="fw-semibold">{{ ecole.Ville }}</span> -->
         </div>
 
         <button 
