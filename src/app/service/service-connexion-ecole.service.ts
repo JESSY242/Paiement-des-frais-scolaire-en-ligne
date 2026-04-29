@@ -9,6 +9,8 @@ import { GlobalServiceService } from './global-service.service';
 })
 export class ServiceConnexionEcoleService {
   private apiUrl= "https://www.eschoolapi.com/epay/V1/USER_DemandeConnexion"
+
+  
    private transactionUrl = "https://www.eschoolapi.com/epay/V1/USER_Get_Transactions";
 
   constructor(
