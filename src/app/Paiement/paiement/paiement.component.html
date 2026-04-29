@@ -19,51 +19,49 @@
 
   <form class="w-100 col-12 col-lg-6 col-md-6 m-auto p-2 p-md-4 p-lg-5 shadow raduis" #form="ngForm" (ngSubmit)="rechercheForm(form)">
     <fieldset>
-      <fieldset class="p-4 rounded-4 shadow-sm border" style="background-color: #ffffff;">
+      <fieldset class=" container p-4 rounded-4 shadow-sm border" style="background-color: #ffffff;">
         
-        <legend class="mb-4 h5 text-dark">{{ nomEtablissement }} <span>({{CodeEcole}})</span></legend>
-
-        <div class="mb-3">
-          <label for="codeEcole" class="form-label" style="color: #000000;">Code de l'établissement</label>
+        <legend class="mb-4 h5 text-dark">{{ nomEtablissement }} ({{CodeEcole}})</legend>
+ <div class="mb-3">
+          <label for="codeEcole" class="form-label" style="color: #000000;"></label>
           <input 
-            type="text" 
-            id="codeEcole" 
-            name="CodeEcole" 
-            class="form-control bg-light text-dark border-0" 
-            [(ngModel)]="CodeEcole" 
-            [readOnly]="true" 
-            placeholder="Code de l'établissement">
+  type="hidden"
+  name="CodeEcole"
+  [(ngModel)]="CodeEcole">
         </div>
+       <div class="row g-3 mt-2">
+  
+  <div class="col-12 col-md-6">
+    <input 
+      type="text" 
+      id="nomEleve" 
+      name="Nom" 
+      class="form-control bg-light text-dark border-0" 
+      ngModel 
+      required
+      placeholder="Entrez le nom de l'élève">
+  </div>
 
-        <div class="mb-3">
-          <label for="nomEleve" class="form-label" style="color: #000000;">Nom de l'élève</label>
-          <input 
-            type="text" 
-            id="nomEleve" 
-            name="Nom" 
-            class="form-control bg-light text-dark border-0" 
-            ngModel 
-            placeholder="Entrez le nom de l'élève">
-        </div>
+  <div class="col-12 col-md-6">
+    <input 
+      type="text" 
+      id="prenomEleve" 
+      name="Prenom" 
+      class="form-control bg-light text-dark border-0" 
+      ngModel 
+      required
+      placeholder="Entrez le prénom de l'élève">
+  </div>
 
-        <div class="mb-3">
-          <label for="prenomEleve" class="form-label" style="color: #000000;">Prénom de l'élève</label>
-          <input 
-            type="text" 
-            id="prenomEleve" 
-            name="Prenom" 
-            class="form-control bg-light text-dark border-0" 
-            ngModel 
-            placeholder="Entrez le prénom de l'élève">
-        </div>
-
+</div>
         <div class="mt-4 text-end">
-          <button 
-            type="submit" 
-            class="btn fw-semibold px-4" 
-            style="background-color: black; color: white; border-radius: 8px;">
-            Rechercher
-          </button>
+         <button 
+  type="submit" 
+  class="btn fw-semibold px-4 container" 
+  [disabled]="form.invalid"
+  style="background-color: black; color: white; border-radius: 8px;">
+  Rechercher
+</button>
         </div>
 
         <div *ngIf="!loading && eleveTrouve.length === 0 && rechercheEffectuee" class="alert alert-warning mt-3 text-center">
@@ -77,14 +75,14 @@
   Résultats trouvés
 </h3>
 
-      <div class="row g-2 align-items-center mb-3" *ngIf="eleveTrouve.length > 0">
+      <!-- <div class="row g-2 align-items-center mb-3" *ngIf="eleveTrouve.length > 0">
         <div class="col-lg-8 col-md-8 col-12">
           <input type="text" class="form-control shadow-sm border-0" name="Recherche" ngModel placeholder="🔍 Rechercher un élève..." />
         </div>
         <div class="col-lg-4 col-md-4 col-12 text-end">
           <button class="btn btn-search w-100 fw-bold">Rechercher</button>
         </div>
-      </div>
+      </div> -->
 
       <div class="d-flex justify-content-center mt-5" *ngIf="loading">
         <div class="spinner-border text-danger" role="status">
@@ -103,7 +101,7 @@
           <th>Matricule</th>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Date Naissance</th>
+          <!-- <th>Date Naissance</th> -->
           <th>Lieu Naissance</th>
           <th>Établissement</th>
           <th>Action</th>
@@ -114,7 +112,7 @@
           <td>{{ eleve.Metricule }}</td>
           <td>{{ eleve.Nom }}</td>
           <td>{{ eleve.Prenom }}</td>
-          <td>{{ eleve.DateNaissance }}</td>
+          <!-- <td>{{ eleve.DateNaissance }}</td> -->
           <td>{{ eleve.LieuNaissance }}</td>
           <td>{{ eleve.Etablissement }}</td>
           <td>

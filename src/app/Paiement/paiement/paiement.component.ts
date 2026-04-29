@@ -74,6 +74,8 @@ goBack(): void {
 rechercheForm(form: NgForm) {
   this.loading = true;
   const eleve: Ieleve = form.value;
+  console.log(eleve);
+  
 
   this.serviceEleve.postRecherEcole(eleve).subscribe({
     next: (data) => {

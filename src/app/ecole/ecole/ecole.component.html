@@ -22,10 +22,10 @@
 
   <div class="col-lg-4 col-md-6 col-12" *ngFor="let ecole of recherches">
 
-    <div class="card ecole-card h-100 shadow-sm">
+    <div class="card ecole-card h-100 shadow-sm border" style="border: 1px solid black;">
 
       <!-- Header rouge -->
-      <div class="card-header header-red text-white border-0" (click)="infosEveles(ecole)">
+      <div class="card-header header-red text-white border-0" (click)="infosEveles(ecole)" style="border: 1px solid black;">
         <h3 class="mb-1 fw-bold">
           {{ ecole.NomEtab }}  <small class="opacity-75" style="margin-left: 5px;">
         ({{ ecole.CodeEtab }} )
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Body -->
-      <div class="card-body"  (click)="infosEveles(ecole)">
+      <div class="card-body"  (click)="infosEveles(ecole)" style="border: 1px solid rgb(0, 0, 0);">
 
         <div class="d-flex justify-content-between mb-3"(click)="infosEveles(ecole)" >
           <span>{{ ecole.Ville }}</span>
